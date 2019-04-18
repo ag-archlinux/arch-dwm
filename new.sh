@@ -125,9 +125,11 @@ EOF
 	    cat /mnt/etc/fstab
         genfstab /mnt >> /mnt/etc/fstab
 	##### b) Chroot
-		curl https://raw.githubusercontent.com/ag-archlinux/dwm/master/new/chroot.sh > /mnt/chroot.sh
+		curl https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/chroot.sh > /mnt/chroot.sh
 	    arch-chroot /mnt bash chroot.sh
 	    rm /mnt/chroot.sh
+	    USER= $(cat /etc/passwd | grep "/home" |cut -d: -f1)
+	    curl https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /home/$USER
     ##### c) Unmount all the partitions
     	umount -R /mnt
     ##### d) Restart the machine

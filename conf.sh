@@ -15,6 +15,10 @@
     ##### b) git
     	cd
 		sudo pacman --noconfirm --needed -S git
+		git clone https://github.com/ag-archlinux/arch-dwm
+		sudo rm -rf new.sh
+		sudo rm -rf conf.sh 
+
 		git clone https://git.suckless.org/dwm
 		git clone https://git.suckless.org/dmenu
 		git clone https://git.suckless.org/st
