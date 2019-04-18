@@ -129,7 +129,7 @@ EOF
 	    arch-chroot /mnt bash chroot.sh
 	    rm /mnt/chroot.sh
 	    USER= $(cat /etc/passwd | grep "/home" |cut -d: -f1)
-	    curl https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /home/$USER
+	    curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /home/$USER/conf.sh
     ##### c) Unmount all the partitions
     	umount -R /mnt
     ##### d) Restart the machine
