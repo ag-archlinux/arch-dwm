@@ -32,3 +32,5 @@
 		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
 	##### d) startx
 		startx
+		pkill x
+		startx

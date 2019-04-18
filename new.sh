@@ -128,10 +128,11 @@ EOF
 		curl https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/chroot.sh > /mnt/chroot.sh
 	    arch-chroot /mnt bash chroot.sh
 	    rm /mnt/chroot.sh
-	    USER= $(cat /etc/passwd | grep "/home" |cut -d: -f1)
-	    curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /home/$USER/conf.sh
     ##### c) Unmount all the partitions
     	umount -R /mnt
-    ##### d) Restart the machine
+    ##### d) Restart the machine & download post-installation file
+        USER= $(cat /etc/passwd | grep "/home" |cut -d: -f1)
+	    curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /home/$USER/conf.sh
+	    read -p "Press any key..."
     	reboot
 #####     --------------------------------------------------
