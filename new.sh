@@ -139,9 +139,7 @@ EOF
     	sudo echo "[Install]" >>  /etc/systemd/system/script.service
     	sudo echo "WantedBy=multi-user.target" >>  /etc/systemd/system/script.service
 
-    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /usr/bin/script.sh
-    	
-    	sudo touch /usr/bin/script.sh
+    	sudo curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /usr/bin/script.sh
     	sudo chmod 755 /usr/bin/script.sh
     	sudo systemctl enable script.service
     ##### e) Restart the machine
