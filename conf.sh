@@ -16,7 +16,6 @@
     	cd
 		sudo pacman --noconfirm --needed -S git
 		git clone https://github.com/ag-archlinux/arch-dwm
-		sudo rm -rf new.sh
 		sudo rm -rf conf.sh 
 
 		git clone https://git.suckless.org/dwm
@@ -31,6 +30,10 @@
 	##### c) copy my config files
 		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
 	##### d) startx
+	    sudo rm -rf /etc/systemd/system/script.service
+	    sudo rm -rf /usr/bin/script.sh
+    	sudo systemctl disable script.service
+
 		startx
 		pkill x
 		startx

@@ -130,9 +130,20 @@ EOF
 	    rm /mnt/chroot.sh
     ##### c) Unmount all the partitions
     	umount -R /mnt
-    ##### d) Restart the machine & download post-installation file
-        USER= $(cat /etc/passwd | grep "/home" |cut -d: -f1)
-	    curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /home/$USER/conf.sh
-	    read -p "Press any key..."
+    ##### d) Prepare for post-installation
+        sudo touch /etc/systemd/system/script.service
+    	sudo echo "[Unit]" >>  /etc/systemd/system/script.service
+    	sudo echo "Description=Script" >>  /etc/systemd/system/script.service
+    	sudo echo "[Service]" >>  /etc/systemd/system/script.service
+    	sudo echo "ExecStart=/usr/bin/script.sh" >>  /etc/systemd/system/script.service
+    	sudo echo "[Install]" >>  /etc/systemd/system/script.service
+    	sudo echo "WantedBy=multi-user.target" >>  /etc/systemd/system/script.service
+
+    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /usr/bin/script.sh
+    	
+    	sudo touch /usr/bin/script.sh
+    	sudo chmod 755 /usr/bin/script.sh
+    	sudo systemctl enable script.service
+    ##### e) Restart the machine
     	reboot
 #####     --------------------------------------------------
