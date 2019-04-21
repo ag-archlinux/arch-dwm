@@ -125,6 +125,8 @@ EOF
 	    cat /mnt/etc/fstab
         genfstab /mnt >> /mnt/etc/fstab
     ##### b) Prepare for post-installation
+        read -p "END"
+        read -p "END"
         cp /etc/skel/.bash_profile /etc/skel/.bash_profile.backup 
         touch /etc/skel/script.sh
     	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /etc/skel/script.sh
