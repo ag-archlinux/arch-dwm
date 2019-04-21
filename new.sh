@@ -27,9 +27,7 @@
         done
         echo "You are connected to the internet!"
     ##### d) Update the system clock
-        timedatectl status
         timedatectl set-ntp true
-		timedatectl status 
     ##### e) Partition the disks
     	if [ "$BOOT" = "BIOS" ]; then
   			echo "BIOS"
@@ -125,11 +123,10 @@ EOF
 	    cat /mnt/etc/fstab
         genfstab /mnt >> /mnt/etc/fstab
     ##### b) Prepare for post-installation
-        read -p "END"
-        read -p "END"
         cp /etc/skel/.bash_profile /etc/skel/.bash_profile.backup 
         touch /etc/skel/script.sh
-    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /etc/skel/script.sh
+    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh 
+    	cp conf.sh /etc/skel/script.sh
     	echo "bash /etc/skel/script.sh" >> /etc/skel/.bash_profile
 	##### c) Chroot
 		curl https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/chroot.sh > /mnt/chroot.sh
@@ -138,5 +135,6 @@ EOF
     ##### d) Unmount all the partitions
     	umount -R /mnt
     ##### e) Restart the machine
+        rm new.sh
     	reboot
 #####     --------------------------------------------------

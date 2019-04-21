@@ -15,14 +15,6 @@
 			echo "::1        localhost" >> /etc/hosts
 			echo "127.0.0.1  " + $COMPUTER_NAME+ ".localdomain "+ $COMPUTER_NAME >> /etc/hosts
     	##### 4) Network configuration
-    		read -p "Enter your username: " PERSONAL_ACCOUNT
-    		# Create personal account
-    		useradd -m -G wheel,users -s /bin/bash $PERSONAL_ACCOUNT
-    		# Create password of personal account
-			passwd $PERSONAL_ACCOUNT
-			# Account sudo permitions
-			sed -i "/#MY_PERMISSION/d" /etc/sudoers
-			echo -e "%wheel ALL=(ALL) NOPASSWD: ALL #MY_PERMISSION" >> /etc/sudoers
 			# Configure network manager
     		pacman --noconfirm --needed -S networkmanager
 			systemctl enable NetworkManager

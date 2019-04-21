@@ -11,7 +11,11 @@
 		sudo pacman --noconfirm --needed -S nitrogen compton youtube-dl sxiv entr
 		sudo pacman --noconfirm --needed -S gimp kodi qrencode netcat feh mediainfo
 		sudo pacman --noconfirm --needed -S termbin noto-fonts neomutt urlview
+	##### b) graphics driver & dislpay manager	
 		#lspci | grep -e VGA -e 3D
+		#sudo pacman -S lightdm
+		#sudo pacman -S lightdm-gtk-greeter lightdm-gtk-greeter-settings
+     	#sudo systemctl enable lightdm.service
     ##### b) git
     	cd
 		sudo pacman --noconfirm --needed -S git
@@ -33,7 +37,7 @@
 	    sudo cp /etc/skel/.bash_profile.backup /etc/skel/.bash_profile
 	    sudo rm -rf /etc/skel/.bash_profile.backup
 	    sudo rm -rf /etc/skel/script.sh
-	    
+
 		startx
 		pkill x
 		startx
