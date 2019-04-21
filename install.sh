@@ -1,10 +1,11 @@
 #!/bin/bash
 #####     Created by: ag
 #####     --------------------------------------------------
+if [ ! -e "/home" ]; then
 #####  INPUTS                                  #####
 	read -p "Enter your computer's name: " HOSTNAME
     read -p "Enter your root password: " ROOT_PASSWORD
-    read -p "Enter your username: " USERNAME
+	read -p "Enter your username: " USERNAME
     read -p "Enter your user's password: " USER_PASSWORD
 	read -p "What is your RAM (G)? " RAM_IN
 	read -p "What is your ROOT_SPACE (G)? " ROOT_SPACE
@@ -131,8 +132,8 @@ EOF
     ##### b) Prepare for post-installation
         cp /etc/skel/.bash_profile /etc/skel/.bash_profile.backup 
         touch /etc/skel/script.sh
-    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh 
-    	cp conf.sh /etc/skel/script.sh
+    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/install.sh 
+    	cp install.sh /etc/skel/script.sh
     	echo "bash /etc/skel/script.sh" >> /etc/skel/.bash_profile
 	##### c) Chroot
 	    arch-chroot /mnt <<- EOF
@@ -149,12 +150,18 @@ EOF
 				echo "::1        localhost" >> /etc/hosts
 				echo "127.0.0.1  " + $HOSTNAME+ ".localdomain "+ $HOSTNAME >> /etc/hosts
     		##### 4) Network configuration
-				  # Configure network manager
-    			pacman --noconfirm --needed -S networkmanager
-				systemctl enable NetworkManager
-				systemctl start NetworkManager
-				  #pacman --noconfirm --needed -S iw wpa_supplicant dialog wpa-actiond
-				  #systemctl enable dhcpcd
+				##### a) create personal account & password of personal account
+    				useradd -k /etc/skel -m -g users -G audio,video,network,wheel,storage -s /bin/bash $USERNAME
+    				echo "$USERNAME:$USER_PASSWORD" | /usr/sbin/chpasswd
+    			##### b) account sudo permitions
+					sed -i "/#MY_PERMISSION/d" /etc/sudoers
+					echo -e "%wheel ALL=(ALL) NOPASSWD: ALL #MY_PERMISSION" >> /etc/sudoers    		
+				##### c) configure network manager
+    				pacman --noconfirm --needed -S networkmanager
+					systemctl enable NetworkManager
+					systemctl start NetworkManager
+				  	#pacman --noconfirm --needed -S iw wpa_supplicant dialog wpa-actiond
+				  	#systemctl enable dhcpcd
     		##### 5) Initramfs
     			mkinitcpio -p linux
     		##### 6) Root password
@@ -172,27 +179,13 @@ EOF
         rm new.sh
     	reboot
 #####     --------------------------------------------------
-#####     3. Post-Installation - Configuration 1.
-	##### a) login as root
-
-	##### b) update
-		sudo pacman --noconfirm --needed -Syu
-	##### c) install bash-completion 
-		sudo pacman --noconfirm --needed -S bash-completion
-	##### d) create personal account & password of personal account
-    	useradd -k /etc/skel -m -g users -G audio,video,network,wheel,storage -s /bin/bash $USERNAME
-    	echo "$USERNAME:$USER_PASSWORD" | /usr/sbin/chpasswd
-    ##### e) account sudo permitions
-		sed -i "/#MY_PERMISSION/d" /etc/sudoers
-		echo -e "%wheel ALL=(ALL) NOPASSWD: ALL #MY_PERMISSION" >> /etc/sudoers
-	##### f) logout
-		exit
-#####     4. Post-Installation - Configuration 2.
+else 
+#####     3. Post-Installation - Configuration
 	##### a) login as user
 
 	##### b) update & xorg & installation of another programs
 		sudo pacman --noconfirm --needed -Syu
-		sudo pacman --noconfirm --needed -S xorg-server xorg-xinit xorg-xsetroot gcc make pkg-config libx11 libxft libxinerama ttf-ubuntu-font-family
+		sudo pacman --noconfirm --needed -S xorg-server xorg-xinit xorg-xsetroot gcc make pkg-config bash-completion libx11 libxft libxinerama ttf-ubuntu-font-family
 		sudo pacman --noconfirm --needed -S filezilla gimp inkscape firefox neovim rxvt-unicode zip unrar unzip ranger htop
 		sudo pacman --noconfirm --needed -S scrot w3m lynx atool highlight xclip mupdf mplayer transmission-cli openssh
 		sudo pacman --noconfirm --needed -S ncmpcpp pulseaudio-alsa pulsemixer	wget zathura conky 
@@ -228,4 +221,5 @@ EOF
 
 		startx
 		pkill x
-		startx
+		startx 
+fi 
