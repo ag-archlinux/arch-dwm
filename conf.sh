@@ -30,10 +30,10 @@
 	##### c) copy my config files
 		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
 	##### d) startx
-	    sudo rm -rf /etc/systemd/system/script.service
-	    sudo rm -rf /usr/bin/script.sh
-    	sudo systemctl disable script.service
-
+	    sudo cp /etc/skel/.bash_profile.backup /etc/skel/.bash_profile
+	    sudo rm -rf /etc/skel/.bash_profile.backup
+	    sudo rm -rf /etc/skel/script.sh
+	    
 		startx
 		pkill x
 		startx

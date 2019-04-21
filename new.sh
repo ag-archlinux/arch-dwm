@@ -124,24 +124,17 @@ EOF
 	##### a) Fstab
 	    cat /mnt/etc/fstab
         genfstab /mnt >> /mnt/etc/fstab
-	##### b) Chroot
+    ##### b) Prepare for post-installation
+        cp /etc/skel/.bash_profile /etc/skel/.bash_profile.backup 
+        touch /etc/skel/script.sh
+    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /etc/skel/script.sh
+    	echo "bash /etc/skel/script.sh" >> /etc/skel/.bash_profile
+	##### c) Chroot
 		curl https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/chroot.sh > /mnt/chroot.sh
 	    arch-chroot /mnt bash chroot.sh
 	    rm /mnt/chroot.sh
-    ##### c) Unmount all the partitions
+    ##### d) Unmount all the partitions
     	umount -R /mnt
-    ##### d) Prepare for post-installation
-        sudo touch /etc/systemd/system/script.service
-    	sudo echo "[Unit]" >>  /etc/systemd/system/script.service
-    	sudo echo "Description=Script" >>  /etc/systemd/system/script.service
-    	sudo echo "[Service]" >>  /etc/systemd/system/script.service
-    	sudo echo "ExecStart=/usr/bin/script.sh" >>  /etc/systemd/system/script.service
-    	sudo echo "[Install]" >>  /etc/systemd/system/script.service
-    	sudo echo "WantedBy=multi-user.target" >>  /etc/systemd/system/script.service
-
-    	sudo curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/conf.sh > /usr/bin/script.sh
-    	sudo chmod 755 /usr/bin/script.sh
-    	sudo systemctl enable script.service
     ##### e) Restart the machine
     	reboot
 #####     --------------------------------------------------
