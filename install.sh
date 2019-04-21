@@ -43,58 +43,58 @@ if [ ! -e "/home" ]; then
   			echo "BIOS"
 #   Prepare the disk
          	fdisk -l
-cat<<EOF | fdisk /dev/sda
-n
-p
-1
+			cat<<EOF | fdisk /dev/sda
+				n
+				p
+				1
 
-+${ROOT_SPACE}G
-n
-p
-2
+				+${ROOT_SPACE}G
+				n
+				p
+				2
 
-+${RAM}G
-t
-2
-82
-n
-p
-3
+				+${RAM}G
+				t
+				2
+				82
+				n
+				p
+				3
 
 
-w
+				w
 EOF
 		else
 			echo "UEFI"
 			fdisk -l
 #   Prepare the disk
-cat<<EOF | fdisk /dev/sda
-n
-p
-1
+			cat<<EOF | fdisk /dev/sda
+				n
+				p
+				1
 
-+500M
-t
-ef
-n
-p
-2
+				+500M
+				t
+				ef
+				n
+				p
+				2
 
-+${RAM}G
-t
-2
-82
-n
-p
-3
+				+${RAM}G
+				t
+				2
+				82
+				n
+				p
+				3
 
-+${ROOT_SPACE}G
-n
-p
-4
+				+${ROOT_SPACE}G
+				n
+				p
+				4
 
 
-w
+				w
 EOF
 		fi
     ##### f) Format the partitions & Mount the file systems
@@ -136,7 +136,7 @@ EOF
     	cp install.sh /etc/skel/script.sh
     	echo "bash /etc/skel/script.sh" >> /etc/skel/.bash_profile
 	##### c) Chroot
-	    arch-chroot /mnt << EOF
+        cat<<EOF | arch-chroot /mnt
 	    	##### 1) Time zone
     			ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
     			hwclock-systohc
@@ -172,7 +172,7 @@ EOF
 				grub-mkconfig -o /boot/grub/grub.cfg
 			##### Exit chroot
 				exit
-	    EOF
+EOF
     ##### d) Unmount all the partitions
     	umount -R /mnt
     ##### e) Restart the machine
