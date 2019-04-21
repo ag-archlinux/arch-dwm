@@ -1,7 +1,7 @@
 #!/bin/bash
 #####     Created by: ag
 #####     --------------------------------------------------
-if [ ! -e "/home" ]; then
+if [ ! "$(ls -A "/home")" ]; then
 #####  INPUTS                                  #####
 	read -p "Enter your computer's name: " HOSTNAME
     read -p "Enter your root password: " ROOT_PASSWORD
