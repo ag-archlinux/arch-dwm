@@ -136,7 +136,7 @@ EOF
     	cp install.sh /etc/skel/script.sh
     	echo "bash /etc/skel/script.sh" >> /etc/skel/.bash_profile
 	##### c) Chroot
-	    arch-chroot /mnt <<- EOF
+	    arch-chroot /mnt << EOF
 	    	##### 1) Time zone
     			ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
     			hwclock-systohc
