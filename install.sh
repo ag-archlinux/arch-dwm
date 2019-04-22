@@ -3,15 +3,37 @@
 #####     --------------------------------------------------
 if [ ! "$(ls -A "/home")" ]; then
 #####  INPUTS                                  #####
-	read -p "Enter your computer's name: " HOSTNAME
-    read -p "Enter your root password: " ROOT_PASSWORD
-	read -p "Enter your username: " USERNAME
-    read -p "Enter your user's password: " USER_PASSWORD
-	read -p "What is your RAM (G)? " RAM_IN
+	##### hostname
+	echo -n "Hostname: "
+	read HOSTNAME
+	: "${HOSTNAME:?"Missing hostname"}"
+	##### root password
+	echo -n "Root password: "
+	read -s ROOT_PASSWORD
+	echo
+	echo -n "Repeat root password: "
+	read -s ROOT_PASSWORD_REPEAT
+	echo
+	[[ "$ROOT_PASSWORD" == "$ROOT_PASSWORD_REPEAT" ]] || ( echo "Root passwords did not match"; exit 1; )
+	##### username
+	echo -n "Username: "
+	read USERNAME
+	: "${USERNAME:?"Missing username"}"
+	##### user password
+	echo -n "User password: "
+	read -s USER_PASSWORD
+	echo
+	echo -n "Repeat user password: "
+	read -s USER_PASSWORD_REPEAT
+	echo
+	[[ "$USER_PASSWORD" == "$USER_PASSWORD_REPEAT" ]] || ( echo "User passwords did not match"; exit 1; )
+	##### root space
 	read -p "What is your ROOT_SPACE (G)? " ROOT_SPACE
-
+	##### timezone
 	TIMEZONE="Europe/Bratislava"
+	##### locale
 	LOCALE="en_US.UTF-8"
+	##### drive
 	DRIVE="/dev/sda"
 #####     --------------------------------------------------
 #####     1. Pre-Installation
@@ -38,7 +60,9 @@ if [ ! "$(ls -A "/home")" ]; then
     ##### d) Update the system clock
         timedatectl set-ntp true
     ##### e) Partition the disks
-    	RAM=$(bc <<< "$RAM_IN * 1.5")
+          # swap
+    	SWAP=$(free --mebi | awk '/Mem:/ {print $2}')
+ 		SWAP_SPACE=$(( $SWAP + 130 ))MiB
     	if [ "$BOOT" = "BIOS" ]; then
   			echo "BIOS"
 #   Prepare the disk
@@ -53,7 +77,7 @@ if [ ! "$(ls -A "/home")" ]; then
 				p
 				2
 
-				+${RAM}G
+				+${SWAP_SPACE}
 				t
 				2
 				82
@@ -80,7 +104,7 @@ EOF
 				p
 				2
 
-				+${RAM}G
+				+${SWAP_SPACE}
 				t
 				2
 				82
