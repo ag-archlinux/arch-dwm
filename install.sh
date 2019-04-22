@@ -192,7 +192,7 @@ EOF
     			echo "root:$ROOT_PASSWORD" | /usr/sbin/chpasswd
     		##### 7) Boot loader
     			pacman --noconfirm --needed -S grub os-prober
-				grub-install --recheck --target=i386-pc "$DRIVE"
+				grub-install --recheck --target=i386-pc $DRIVE
 				grub-mkconfig -o /boot/grub/grub.cfg
 			##### Exit chroot
 				exit
