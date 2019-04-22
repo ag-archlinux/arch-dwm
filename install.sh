@@ -159,6 +159,8 @@ EOF
     	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/install.sh 
     	cp install.sh /etc/skel/script.sh
     	echo "bash /etc/skel/script.sh" >> /etc/skel/.bash_profile
+    	read -p "END"
+    	read -p "END"
 	##### c) Chroot
         cat<<EOF | arch-chroot /mnt
 	    	##### 1) Time zone
