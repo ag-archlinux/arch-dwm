@@ -162,7 +162,7 @@ EOF
     	read -p "END"
     	read -p "END"
 	##### c) Chroot
-        cat<<EOF | arch-chroot /mnt
+        arch-chroot /mnt <<EOF
 #####     --------------------------------------------------
     ##### b) Chroot
 
