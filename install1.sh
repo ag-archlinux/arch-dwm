@@ -1,7 +1,7 @@
 #!/bin/bash
 #####     Created by: ag
+#####     File: install1.sh
 #####     --------------------------------------------------
-if [ ! "$(ls -A "/home")" ]; then
 #####  INPUTS                                  #####
 	##### hostname
 	echo -n "Hostname: "
@@ -15,18 +15,6 @@ if [ ! "$(ls -A "/home")" ]; then
 	read -s ROOT_PASSWORD_REPEAT
 	echo
 	[[ "$ROOT_PASSWORD" == "$ROOT_PASSWORD_REPEAT" ]] || ( echo "Root passwords did not match"; exit 1; )
-	##### username
-	echo -n "Username: "
-	read USERNAME
-	: "${USERNAME:?"Missing username"}"
-	##### user password
-	echo -n "User password: "
-	read -s USER_PASSWORD
-	echo
-	echo -n "Repeat user password: "
-	read -s USER_PASSWORD_REPEAT
-	echo
-	[[ "$USER_PASSWORD" == "$USER_PASSWORD_REPEAT" ]] || ( echo "User passwords did not match"; exit 1; )
 	##### root space
 	read -p "What is your ROOT_SPACE (G)? " ROOT_SPACE
 	##### timezone
@@ -167,19 +155,13 @@ EOF
 				echo "127.0.0.1  localhost" >> /etc/hosts
 				echo "::1        localhost" >> /etc/hosts
 				echo "127.0.0.1  " + $HOSTNAME+ ".localdomain "+ $HOSTNAME >> /etc/hosts
-    		##### 4) Network configuration
-				##### a) create personal account & password of personal account
-    				useradd -m -g users -G audio,video,network,wheel,storage -s /bin/bash $USERNAME
-    				echo "$USERNAME:$USER_PASSWORD" | /usr/sbin/chpasswd
-    			##### b) account sudo permitions
-					sed -i "/#MY_PERMISSION/d" /etc/sudoers
-					echo -e "%wheel ALL=(ALL) NOPASSWD: ALL #MY_PERMISSION" >> /etc/sudoers    		
-				##### c) configure network manager
-    				pacman --noconfirm --needed -S networkmanager
-					systemctl enable NetworkManager
-					systemctl start NetworkManager
-				  	#pacman --noconfirm --needed -S iw wpa_supplicant dialog wpa-actiond
-				  	#systemctl enable dhcpcd
+    		##### 4) Network configuration   		
+				  # configure network manager
+    			pacman --noconfirm --needed -S networkmanager
+				systemctl enable NetworkManager
+				systemctl start NetworkManager
+			  	#pacman --noconfirm --needed -S iw wpa_supplicant dialog wpa-actiond
+			  	#systemctl enable dhcpcd
     		##### 5) Initramfs
     			mkinitcpio -p linux
     		##### 6) Root password
@@ -193,70 +175,7 @@ EOF
 EOF
     ##### c) Unmount all the partitions
     	umount -R /mnt
-    	read -p "END"
-    ##### d) Prepare for post-installation
-    	#curl https://raw.githubusercontent.com/ag-archlinux/dwm/master/install.sh > /usr/bin/script.sh
-    	touch /usr/bin/script.sh
-    	echo "#!/bin/bash" > /usr/bin/script.sh  
-        echo "curl https://raw.githubusercontent.com/ag-archlinux/dwm/master/install.sh > /home/$USERNAME/install.sh" >> /usr/bin/script.sh
-        cat >>/etc/systemd/system/script.service <<EOF
-        [Unit]
-		Description=Script
-
-		[Service]
-		ExecStart=/usr/bin/script.sh
-
-		[Install]
-		WantedBy=multi-user.target 
-EOF
-		sudo chmod 755 /usr/bin/script.sh
-		sudo systemctl enable script.service
     ##### e) Restart the machine
-        rm install.sh
-        read -p "END"
+        rm install1.sh
     	reboot
 #####     --------------------------------------------------
-else 
-#####     3. Post-Installation - Configuration
-	##### a) login as user
-
-	##### b) update & xorg & installation of another programs
-		sudo pacman --noconfirm --needed -Syu
-		sudo pacman --noconfirm --needed -S xorg-server xorg-xinit xorg-xsetroot gcc make pkg-config bash-completion libx11 libxft libxinerama ttf-ubuntu-font-family
-		sudo pacman --noconfirm --needed -S filezilla gimp inkscape firefox neovim rxvt-unicode zip unrar unzip ranger htop
-		sudo pacman --noconfirm --needed -S scrot w3m lynx atool highlight xclip mupdf mplayer transmission-cli openssh
-		sudo pacman --noconfirm --needed -S ncmpcpp pulseaudio-alsa pulsemixer	wget zathura conky 
-		sudo pacman --noconfirm --needed -S nitrogen compton youtube-dl sxiv entr
-		sudo pacman --noconfirm --needed -S gimp kodi qrencode netcat feh mediainfo
-		sudo pacman --noconfirm --needed -S termbin noto-fonts neomutt urlview
-	##### c) graphics driver & dislpay manager	
-		#lspci | grep -e VGA -e 3D
-		#sudo pacman -S lightdm
-		#sudo pacman -S lightdm-gtk-greeter lightdm-gtk-greeter-settings
-     	#sudo systemctl enable lightdm.service
-    ##### d) git & packages
-    	cd
-		sudo pacman --noconfirm --needed -S git
-		git clone https://github.com/ag-archlinux/arch-dwm
-		sudo rm -rf conf.sh 
-
-		git clone https://git.suckless.org/dwm
-		git clone https://git.suckless.org/dmenu
-		git clone https://git.suckless.org/st
-		git clone https://git.suckless.org/surf
-		
-		cd ~/dwm/   && make clean install
-		cd ~/dmenu/ && make clean install
-		cd ~/st/   && make clean install
-		cd ~/surf/ && make clean install
-	##### e) copy my config files
-		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
-	##### f) startx
-	    sudo cp /etc/skel/.bash_profile.backup /etc/skel/.bash_profile
-	    sudo rm -rf /etc/skel/.bash_profile.backup
-	    sudo rm -rf /etc/skel/script.sh
-
-		startx
-		pkill x
-		startx 
-fi 
