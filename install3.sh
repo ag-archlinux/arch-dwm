@@ -40,4 +40,4 @@
 		startx
 		pkill x
 		startx 
-		rm install3.sh
+		sudo rm install3.sh
