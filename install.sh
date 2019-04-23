@@ -193,7 +193,7 @@ EOF
 EOF
     ##### c) Unmount all the partitions
     	umount -R /mnt
-    ##### b) Prepare for post-installation 
+    ##### d) Prepare for post-installation 
         touch /etc/skel/script.sh
     	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/install.sh 
     	cp install.sh /etc/skel/script.sh
