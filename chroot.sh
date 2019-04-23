@@ -9,7 +9,7 @@
 			locale-gen
 			echo "LANG=en_US.UTF-8" >> /etc/locale.conf
     	##### 3) Hostname
-    		read -p "Enter your computer's name: " COMPUTER_ACCOUNT
+    		read -p "Enter your computer's name: " COMPUTER_NAME
     		echo $COMPUTER_NAME >> /etc/hostname
 			echo "127.0.0.1  localhost" >> /etc/hosts
 			echo "::1        localhost" >> /etc/hosts
