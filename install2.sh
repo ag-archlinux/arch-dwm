@@ -28,6 +28,8 @@
 		sed -i "/#MY_PERMISSION/d" /etc/sudoers
 		echo -e "%wheel ALL=(ALL) NOPASSWD: ALL #MY_PERMISSION" >> /etc/sudoers
 	##### d) logout of root
-	    curl https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/install3.sh > /home/$USERNAME/install3.sh
+	    curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/install3.sh 
+	    cp install3.sh /home/$USERNAME/install3.sh
+	    rm install3.sh
 	    rm install2.sh
 	    exit
