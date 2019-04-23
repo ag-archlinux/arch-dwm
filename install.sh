@@ -194,12 +194,12 @@ EOF
     ##### c) Unmount all the partitions
     	umount -R /mnt
     ##### d) Prepare for post-installation 
-        touch /etc/skel/script.sh
-    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/install.sh 
-    	cp install.sh /etc/skel/script.sh
-    	echo "bash /etc/skel/script.sh" >> /home/$USERNAME/.bash_profile
+        touch /etc/profile.d/script.sh
+    	cp install.sh /etc/profile.d/script.sh
+    	echo "bash /etc/profile.d/script.sh" >> /home/$USERNAME/.bash_profile
     ##### e) Restart the machine
         rm install.sh
+        read -p "END"
     	reboot
 #####     --------------------------------------------------
 else 
