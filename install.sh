@@ -193,10 +193,25 @@ EOF
 EOF
     ##### c) Unmount all the partitions
     	umount -R /mnt
-    ##### d) Prepare for post-installation 
-        touch /etc/profile.d/script.sh
-    	cp install.sh /etc/profile.d/script.sh
-    	echo "bash /etc/profile.d/script.sh" >> /home/$USERNAME/.bash_profile
+    	read -p "END"
+    ##### d) Prepare for post-installation
+    	#curl https://raw.githubusercontent.com/ag-archlinux/dwm/master/install.sh > /usr/bin/script.sh
+    	touch /usr/bin/script.sh
+    	echo "#!/bin/bash" > /usr/bin/script.sh  
+        echo "curl https://raw.githubusercontent.com/ag-archlinux/dwm/master/install.sh > /home/$USERNAME/install.sh" >> /usr/bin/script.sh
+        cat >>/etc/systemd/system/script.service <<EOF
+        [Unit]
+		Description=Script
+
+		[Service]
+		ExecStart=/usr/bin/script.sh
+
+		[Install]
+		WantedBy=multi-user.target 
+
+EOF
+		chmod 755 /usr/bin/script.sh
+		systemctl enable script.service
     ##### e) Restart the machine
         rm install.sh
         read -p "END"
