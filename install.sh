@@ -153,13 +153,7 @@ EOF
 	##### a) Fstab
 	    cat /mnt/etc/fstab
         genfstab /mnt >> /mnt/etc/fstab
-    ##### b) Prepare for post-installation
-        cp /etc/skel/.bash_profile /etc/skel/.bash_profile.backup 
-        touch /etc/skel/script.sh
-    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/install.sh 
-    	cp install.sh /etc/skel/script.sh
-    	echo "bash /etc/skel/script.sh" >> /etc/skel/.bash_profile
-	##### c) Chroot
+	##### b) Chroot
         arch-chroot /mnt /bin/bash <<EOF
 	    	##### 1) Time zone
     			ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
@@ -175,7 +169,7 @@ EOF
 				echo "127.0.0.1  " + $HOSTNAME+ ".localdomain "+ $HOSTNAME >> /etc/hosts
     		##### 4) Network configuration
 				##### a) create personal account & password of personal account
-    				useradd -k /etc/skel -m -g users -G audio,video,network,wheel,storage -s /bin/bash $USERNAME
+    				useradd -m -g users -G audio,video,network,wheel,storage -s /bin/bash $USERNAME
     				echo "$USERNAME:$USER_PASSWORD" | /usr/sbin/chpasswd
     			##### b) account sudo permitions
 					sed -i "/#MY_PERMISSION/d" /etc/sudoers
@@ -197,10 +191,15 @@ EOF
 			##### Exit chroot
 				exit
 EOF
-    ##### d) Unmount all the partitions
+    ##### c) Unmount all the partitions
     	umount -R /mnt
+    ##### b) Prepare for post-installation 
+        touch /etc/skel/script.sh
+    	curl -LO https://raw.githubusercontent.com/ag-archlinux/arch-dwm/master/install.sh 
+    	cp install.sh /etc/skel/script.sh
+    	echo "bash /etc/skel/script.sh" >> /home/$USERNAME/.bash_profile
     ##### e) Restart the machine
-        rm new.sh
+        rm install.sh
     	reboot
 #####     --------------------------------------------------
 else 
