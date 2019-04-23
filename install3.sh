@@ -36,8 +36,9 @@
 		cd ~
 	##### e) copy my config files
 		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
-	##### f) startx
+		echo "pkill x" >> ~/.xinitrc
 		startx
-		pkill x
-		startx 
+		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
+	##### f) startx 
 		sudo rm install3.sh
+		startx
