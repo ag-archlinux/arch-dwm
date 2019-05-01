@@ -6,7 +6,9 @@
 	##### username
 	echo -n "Window manager: (dwm or bspwm) "
 	read DM
-	if [ "$DM" != "dwm" ] || [ "$DM" != "bspwm" ] ;then 
+	if [ "$DM" != "dwm" ] && [ "$DM" != "bspwm" ] ;then
+		exit
+    fi
 #####     -------------------------------------------------- 
 	  # B. LOGIN AS USER  	
 	##### a) update & xorg & important packages
