@@ -7,7 +7,7 @@
 	echo -n "Window manager: (dwm or bspwm) "
 	read DM
 	if [ "$DM" != "dwm" ] && [ "$DM" != "bspwm" ] ;then
-		exit
+		exit 1
     fi
 #####     -------------------------------------------------- 
 	  # B. LOGIN AS USER  	
