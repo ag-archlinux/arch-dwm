@@ -54,8 +54,8 @@
 			cd $HOME
 		fi
 		if [ "$DM" = "bspwm" ]; then
-			git clone https://github.com/baskerville/bspwm.git
-			git clone https://github.com/baskerville/sxhkd.git
+			git clone <a href="https://github.com/baskerville/bspwm.git" rel="nofollow">https://github.com/baskerville/bspwm.git</a>
+			git clone <a href="https://github.com/baskerville/sxhkd.git" rel="nofollow">https://github.com/baskerville/sxhkd.git</a>
 			git clone https://git.suckless.org/dmenu
 			cd $HOME/bspwm/ && sudo make clean install
 			cd $HOME/sxhkd/ && sudo make clean install
