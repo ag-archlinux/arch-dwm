@@ -5,12 +5,5 @@ export TERMINAL=st
 
 xrdb ~/.Xresources
 
-# Battery
-	$(cat /sys/class/power_supply/BAT0/capacity)
-# Date & time
-	while xsetroot -name "`date` `uptime | sed 's/.*,//'`"
-	do
-		sleep 1
-	done &
-# start dwm
-exec dwm
+# start window manager
+exec bspwm
