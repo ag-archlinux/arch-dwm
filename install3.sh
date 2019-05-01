@@ -7,8 +7,6 @@
 	echo -n "Window manager: (dwm or bspwm) "
 	read DM
 	if [ "$DM" != "dwm" ] || [ "$DM" != "bspwm" ] ;then 
-		exit 1
-	fi
 #####     -------------------------------------------------- 
 	  # B. LOGIN AS USER  	
 	##### a) update & xorg & important packages
@@ -72,4 +70,9 @@
 		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
 	##### f) startx 
 		sudo rm install3.sh
-		startx & bspwm
+		if [ "$DM" = "dwm" ] ;then
+			startx & dwm
+		else if [ "$DM" = "bspwm" ]; then
+			startx & bspwm
+		fi
+#####     -------------------------------------------------- 
