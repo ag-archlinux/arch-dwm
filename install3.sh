@@ -59,13 +59,17 @@
 			cd ~/bspwm/ && sudo make clean install
 			cd ~/sxhkd/ && sudo make clean install
 			cd ~/dmenu/ && sudo make clean install
-			cd ~
+
+			mkdir ~/.config/sxhkd
+			mv /sxhkd/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc
+			chmod +x ~/.config/sxhkd/sxhkdrc
+			mkdir ~/.config/sxhkd
+			mv /sxhkd/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc
+			chmod +x ~/.config/sxhkd/sxhkdrc
+			nano ~/.config/sxhkd/sxhkdrc
 		fi
 	##### e) copy my config files
 		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
-		echo "pkill x" >> ~/.xinitrc
-		startx
-		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
 	##### f) startx 
 		sudo rm install3.sh
-		startx
+		startx & bspwm
