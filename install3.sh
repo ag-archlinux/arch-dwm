@@ -36,7 +36,7 @@
 		#sudo pacman -S lightdm-gtk-greeter lightdm-gtk-greeter-settings
      	#sudo systemctl enable lightdm.service
     ##### d) window manager => git & packages
-    	cd ~
+    	cd $HOME
 		sudo pacman --noconfirm --needed -S git
 		git clone https://github.com/ag-archlinux/arch-dwm
 		sudo rm -rf conf.sh 
@@ -47,30 +47,30 @@
 			git clone https://git.suckless.org/st
 			git clone https://git.suckless.org/surf
 		
-			cd ~/dwm/   && sudo make clean install
-			cd ~/dmenu/ && sudo make clean install
-			cd ~/st/   && sudo make clean install
-			cd ~/surf/ && sudo make clean install
-			cd ~
+			cd $HOME/dwm/   && sudo make clean install
+			cd $HOME/dmenu/ && sudo make clean install
+			cd $HOME/st/   && sudo make clean install
+			cd $HOME/surf/ && sudo make clean install
+			cd $HOME
 		fi
 		if [ "$DM" = "bspwm" ]; then
 			git clone https://github.com/baskerville/bspwm.git
 			git clone https://github.com/baskerville/sxhkd.git
 			git clone https://git.suckless.org/dmenu
-			cd ~/bspwm/ && sudo make clean install
-			cd ~/sxhkd/ && sudo make clean install
-			cd ~/dmenu/ && sudo make clean install
+			cd $HOME/bspwm/ && sudo make clean install
+			cd $HOME/sxhkd/ && sudo make clean install
+			cd $HOME/dmenu/ && sudo make clean install
 
-			mkdir ~/.config/sxhkd
-			mv /sxhkd/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc
-			chmod +x ~/.config/sxhkd/sxhkdrc
-			mkdir ~/.config/sxhkd
-			mv /sxhkd/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc
-			chmod +x ~/.config/sxhkd/sxhkdrc
-			nano ~/.config/sxhkd/sxhkdrc
+			mkdir $HOME/.config/sxhkd
+			mv /sxhkd/examples/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
+			chmod +x $HOME/.config/sxhkd/sxhkdrc
+			mkdir $HOME/.config/sxhkd
+			mv /sxhkd/examples/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
+			chmod +x $HOME/.config/sxhkd/sxhkdrc
+			nano $HOME/.config/sxhkd/sxhkdrc
 		fi
 	##### e) copy my config files
-		cp ~/arch-dwm/home/.xinitrc ~/.xinitrc
+		cp $HOME/arch-dwm/home/.xinitrc $HOME/.xinitrc
 	##### f) startx 
 		sudo rm install3.sh
 		if [ "$DM" = "dwm" ] ;then
