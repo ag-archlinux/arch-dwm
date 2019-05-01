@@ -52,7 +52,8 @@
 			cd ~/st/   && sudo make clean install
 			cd ~/surf/ && sudo make clean install
 			cd ~
-		else if [ "$DM" = "bspwm" ]; then
+		fi
+		if [ "$DM" = "bspwm" ]; then
 			git clone https://github.com/baskerville/bspwm.git
 			git clone https://github.com/baskerville/sxhkd.git
 			git clone https://git.suckless.org/dmenu
@@ -74,7 +75,8 @@
 		sudo rm install3.sh
 		if [ "$DM" = "dwm" ] ;then
 			startx & dwm
-		else if [ "$DM" = "bspwm" ]; then
+		fi
+		if [ "$DM" = "bspwm" ]; then
 			startx & bspwm
 		fi
 #####     -------------------------------------------------- 
