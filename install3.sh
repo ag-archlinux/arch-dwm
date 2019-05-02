@@ -20,7 +20,7 @@
 		sudo pacman --noconfirm --needed -S ncmpcpp wget zathura conky 
 		sudo pacman --noconfirm --needed -S nitrogen compton youtube-dl sxiv entr feh sxiv
 		sudo pacman --noconfirm --needed -S gimp kodi qrencode netcat feh mediainfo
-		sudo pacman --noconfirm --needed -S termbin neomutt urlview
+		sudo pacman --noconfirm --needed -S termbin neomutt urlview expac hwinfo reflector
 		  # sound
 		sudo pacman --noconfirm --needed -S pulseaudio pulseaudio-alsa pavucontrol alsa-utils alsa-plugins alsa-lib alsa-firmware gstreamer gst-plugins-good gst-plugins-bad gst-plugins-base gst-plugins-ugly volumeicon playerctl
 		  # bluetooth
@@ -37,9 +37,8 @@
      	#sudo systemctl enable lightdm.service
     ##### d) window manager => git & packages
     	cd $HOME
-		sudo pacman --noconfirm --needed -S git
+		sudo pacman --noconfirm --needed -S git wget
 		git clone https://github.com/ag-archlinux/arch-dwm
-		sudo rm -rf conf.sh 
 		
 		if [ "$DM" = "dwm" ] ;then
 			git clone https://git.suckless.org/dwm
@@ -54,20 +53,21 @@
 			cd $HOME
 		fi
 		if [ "$DM" = "bspwm" ]; then
-			git clone <a href="https://github.com/baskerville/bspwm.git" rel="nofollow">https://github.com/baskerville/bspwm.git</a>
-			git clone <a href="https://github.com/baskerville/sxhkd.git" rel="nofollow">https://github.com/baskerville/sxhkd.git</a>
-			git clone https://git.suckless.org/dmenu
-			cd $HOME/bspwm/ && sudo make clean install
-			cd $HOME/sxhkd/ && sudo make clean install
-			cd $HOME/dmenu/ && sudo make clean install
+			sudo pacman --noconfirm --needed -S bspwm sxhkd dmenu
+		###	git clone https://github.com/baskerville/bspwm.git
+		###	git clone https://github.com/baskerville/sxhkd.git
+		###	git clone https://git.suckless.org/dmenu
+		###	cd $HOME/bspwm/ && sudo make clean install
+		###	cd $HOME/sxhkd/ && sudo make clean install
+		###	cd $HOME/dmenu/ && sudo make clean install
 
-			mkdir $HOME/.config/sxhkd
-			mv /sxhkd/examples/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
-			chmod +x $HOME/.config/sxhkd/sxhkdrc
-			mkdir $HOME/.config/sxhkd
-			mv /sxhkd/examples/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
-			chmod +x $HOME/.config/sxhkd/sxhkdrc
-			nano $HOME/.config/sxhkd/sxhkdrc
+		###	mkdir $HOME/.config/sxhkd
+		###	mv /sxhkd/examples/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
+		###	chmod +x $HOME/.config/sxhkd/sxhkdrc
+		###	mkdir $HOME/.config/sxhkd
+		###	mv /sxhkd/examples/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
+		###	chmod +x $HOME/.config/sxhkd/sxhkdrc
+		###	nano $HOME/.config/sxhkd/sxhkdrc
 		fi
 	##### e) copy my config files
 		cp $HOME/arch-dwm/home/.xinitrc $HOME/.xinitrc
