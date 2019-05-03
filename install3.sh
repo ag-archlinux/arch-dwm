@@ -71,12 +71,9 @@
 		fi
 	##### e) copy my config files
 		cp $HOME/arch-dwm/home/.xinitrc $HOME/.xinitrc
+		cp $HOME/arch-dwm/home/config/bspwm/bspwmrc.sh $HOME/.config/bspwm/bspwmrc
+		cp $HOME/arch-dwm/home/config/sxhkd/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
 	##### f) startx 
 		sudo rm install3.sh
-		if [ "$DM" = "dwm" ] ;then
-			startx & dwm
-		fi
-		if [ "$DM" = "bspwm" ]; then
-			startx & bspwm
-		fi
+		startx
 #####     -------------------------------------------------- 
