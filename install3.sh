@@ -54,25 +54,18 @@
 		fi
 		if [ "$DM" = "bspwm" ]; then
 			sudo pacman --noconfirm --needed -S bspwm sxhkd dmenu
-		###	git clone https://github.com/baskerville/bspwm.git
-		###	git clone https://github.com/baskerville/sxhkd.git
-		###	git clone https://git.suckless.org/dmenu
-		###	cd $HOME/bspwm/ && sudo make clean install
-		###	cd $HOME/sxhkd/ && sudo make clean install
-		###	cd $HOME/dmenu/ && sudo make clean install
-
-		###	mkdir $HOME/.config/sxhkd
-		###	mv /sxhkd/examples/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
-		###	chmod +x $HOME/.config/sxhkd/sxhkdrc
-		###	mkdir $HOME/.config/sxhkd
-		###	mv /sxhkd/examples/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
-		###	chmod +x $HOME/.config/sxhkd/sxhkdrc
-		###	nano $HOME/.config/sxhkd/sxhkdrc
 		fi
 	##### e) copy my config files
+		  ## .xinitrc
 		cp $HOME/arch-dwm/home/.xinitrc $HOME/.xinitrc
+		  ## bspwm
+		mkdir $HOME/.config/bspwm
 		cp $HOME/arch-dwm/home/config/bspwm/bspwmrc.sh $HOME/.config/bspwm/bspwmrc
+		chmod +x $HOME/.config/bspwm/bspwmrc
+		  ## sxhkd
+		mkdir $HOME/.config/sxhkd
 		cp $HOME/arch-dwm/home/config/sxhkd/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
+		chmod +x $HOME/.config/sxhkd/sxhkdrc
 	##### f) startx 
 		sudo rm install3.sh
 		startx
